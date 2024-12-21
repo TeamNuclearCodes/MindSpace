@@ -1,5 +1,6 @@
+"use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { validateToken } from "@/util/auth";
 import Cookies from "js-cookie";
 
@@ -16,23 +17,22 @@ export const AuthProvider = ({ children }) => {
 
   const retreiveUser = async () => {
     const token = Cookies.get("authorized");
+    console.log(token)
     if (token) {
       const user = await validateToken();
       setUser(user);
+      console.log(user)
       if (router.path == "/login" || router.path == "/signup") {
-        router.push("/chatspace");
-        router.events.on("routeChangeComplete", () => {
-          setLoading(false);
-        });
+        setLoading(false);
+        router.push("/app");
       } else {
         setLoading(false);
       }
     } else {
+      console.log(token)
       if (router.pathname !== "/login" && router.pathname !== "/signup") {
+        setLoading(false);
         router.push("/login");
-        router.events.on("routeChangeComplete", () => {
-          setLoading(false);
-        });
       } else {
         setLoading(false);
       }

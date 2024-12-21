@@ -36,7 +36,7 @@ authRouter.post("/signup", async (req, res) => {
 
 authRouter.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] }),
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 authRouter.get(
@@ -45,19 +45,15 @@ authRouter.get(
     session: false,
     failureRedirect: "/login",
   }),
-  (req, res) => {
+  async (req, res) => {
     console.log(12);
     const user = req.user;
 
-    const token = generateToken(
-      { sub: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" },
-    );
-
-    res.cookie("jwt", token, { httpOnly: true, secure: false });
-    res.redirect("/dashboard");
-  },
+    const token = generateToken(user);
+    res.cookie("token", token, { httpOnly: true, secure: false });
+    res.cookie("authorized", "true", { httpOnly: false, secure: false });
+    res.redirect("http://localhost:3000/app/");
+  }
 );
 
 authRouter.post("/login", async (req, res) => {
