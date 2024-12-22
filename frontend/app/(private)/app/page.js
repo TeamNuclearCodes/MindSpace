@@ -25,7 +25,7 @@ const page = () => {
           />
           <LandingCard
             text="Talk with a Therapist"
-            link="/app/room"
+            link="/app/therapist"
             desc="Have one-on-one sessions with a licensed therapist for personalized, professional mental health care and support."
           />
         </div>
