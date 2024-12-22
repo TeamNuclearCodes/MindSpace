@@ -16,18 +16,25 @@ const page = () => {
 
   const sendAIMessages = async (e) => {
     e.preventDefault();
-    setMsgs([...msgs, {
-      sender: "you",
-      content: msg
-    }]);
-    const req = await axios.post("http://noice.com", {message: msg});
+    setMsgs((prevMsgs) => [
+      ...prevMsgs,
+      {
+        sender: "you",
+        content: msg,
+      },
+    ]);
+    const t = msg;
+    setMsg("")
+    const req = await axios.post("http://192.168.76.12:8000", {text: t});
     const data = req.data;
-    setMsgs([...msgs, {
-      sender: "AI",
-      content: data?.message
-    }]);
+    setMsgs((prevMsgs) => [
+      ...prevMsgs,
+      {
+        sender: "AI",
+        content: data?.processed_text,
+      },
+    ]);
   }
-
 
   const msgUserType = (msg) => {
     return msg.sender === "you" ? "ml-auto text-right" : "mr-auto text-left";
@@ -80,6 +87,9 @@ const page = () => {
             />
             <Button type="submit">
               <IoIosSend /> Send
+            </Button>
+            <Button type="button" onClick={() => setMsgs([])}>
+               Clear Chat
             </Button>
           </form>
         </div>
