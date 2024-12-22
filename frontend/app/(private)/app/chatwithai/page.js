@@ -16,13 +16,13 @@ const page = () => {
 
   const sendAIMessages = async (e) => {
     e.preventDefault();
-    setMsg([...msgs, {
+    setMsgs([...msgs, {
       sender: "you",
       content: msg
     }]);
     const req = await axios.post("http://noice.com", {message: msg});
     const data = req.data;
-    setMsg([...msgs, {
+    setMsgs([...msgs, {
       sender: "AI",
       content: data?.message
     }]);
