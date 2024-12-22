@@ -27,11 +27,11 @@ MindSpace blends technology and human expertise to foster meaningful conversatio
 
 | Home|AI Therapist|
 :-:|:-:
-| ![](imgs/img1.png) | ![](imgs/img2.png) |
+| ![](imgs/img1.png) | ![](imgs/img3.png) |
 
 | Virtual Therapy Groups|User Dashboard |
 :-:|:-:
-| ![](imgs/img3.png) | ![](imgs/img4.png) |
+| ![](imgs/img2.png) | ![](imgs/img4.png) |
 
 
 ## Team Members
