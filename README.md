@@ -1,7 +1,7 @@
 # MindSpace
 
 <div align="center">
-  <img src="imgs/logo1.png" width="150"/>
+  <img src="imgs/logo.png" width="150"/>
   <p>
   A platform that ensures that no one is left unheard.
   </p>
