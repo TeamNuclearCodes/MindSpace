@@ -16,33 +16,21 @@ const page = () => {
 
   const sendAIMessages = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      aiChat,
-      {
-        grp: `${user.username}-ai`,
-        msg: msg,
-        from: user.username,
-      },
-      { withCredentials: true }
-    );
+    setMsg([...msgs, {
+      sender: "you",
+      content: msg
+    }]);
+    const req = await axios.post("http://noice.com", {message: msg});
+    const data = req.data;
+    setMsg([...msgs, {
+      sender: "AI",
+      content: data?.message
+    }]);
   }
-
-  useEffect(() => {
-    const fetchAIMessages = async () => {
-      const res = await axios.post(
-        aiClctMsg,
-        {
-          grp: `${user.username}-ai`,
-        },
-        { withCredentials: true }
-      );
-    }
-    fetchAIMessages();
-  }, [])
 
 
   const msgUserType = (msg) => {
-    return msg.sender == user ? "ml-auto text-right" : "mr-auto text-left";
+    return msg.sender === "you" ? "ml-auto text-right" : "mr-auto text-left";
   };
 
   return (
@@ -70,7 +58,7 @@ const page = () => {
               </div>
               <p
                 className={`text-[15px] px-2 py-1 bg-white border text-black rounded-b-md ${
-                  msg.sender == user ? "rounded-l-md" : "rounded-r-md"
+                  msg.sender === "you" ? "rounded-l-md" : "rounded-r-md"
                 }`}
               >
                 {msg.content}
